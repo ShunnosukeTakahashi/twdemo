@@ -12,5 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+   return view('welcome');
 });
+
+Auth::routes();
+
+//Route::get('/' , 'TweetController@index');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+//Route::get('/update' , 'TweetController@update');
+Route::post('/tweet' , 'TweetController@store');
+
+
+Route::get('/users' , 'UserController@index')->name('user_list');
+
+Route::post('/users/follow/{follow_id}' , 'UserController@follow');

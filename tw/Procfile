@@ -1,0 +1,2 @@
+web: vendor/bin/heroku-php-apache2 tw/public/
+git remote add heroku https://git.heroku.com/twdemo-takahashi.git
