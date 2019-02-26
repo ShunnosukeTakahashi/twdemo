@@ -9,19 +9,46 @@
 
                 @foreach ($tweets as $tweet)
 
-                    <div class="card-body">
-                        {{ $tweet->tweet }}
-                        <br>
-                        <div style="display:flex; justify-content: left;align-items: center;">
-                            <div style="float:left">
-                              {{ $tweet->getUser() }} / {{ $tweet->created_at }} 
-                            </div>
-                            <div style="float:left" class="heart"></div>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    {{ $tweet->tweet }}
+                    <br>
+                    <div style="display:flex; justify-content: left;align-items: center;">
+                        <div style="float:left">
+                          {{ $tweet->getUser() }} / {{ $tweet->created_at }} 
+                      </div>
+                      <div style="float:left" class="heart"></div>
 
-                    <hr style="margin-top:0px; margin-bottom:0px">
-                @endforeach
+                      @if($tweet->user_id == Auth::id())
+                      <?php
+                        //formのIDを作る
+
+                      ?>
+                      <form
+                      id=""
+                      style="display: inline-block;"
+                      method="POST"
+                      action="{{ route('tweet_delete', ['tweet' => $tweet]) }}"
+                      >
+                      @csrf
+                      <?php //@method('DELETE') ?>
+
+                      <button class="btn far fa-trash-alt"></button>
+                      
+                      
+                  </form>
+                    @else
+                    @endif
+
+
+                  </div>
+                  
+              </div>
+
+              <hr style="margin-top:0px; margin-bottom:0px">
+
+              
+
+          @endforeach
 
                 <!-- <div class="card-body">
                     @if (session('status'))

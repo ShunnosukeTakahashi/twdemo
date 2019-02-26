@@ -28,3 +28,8 @@ Route::post('/tweet' , 'TweetController@store');
 Route::get('/users' , 'UserController@index')->name('user_list');
 
 Route::post('/users/follow/{follow_id}' , 'UserController@follow');
+
+
+Route::post('/tweet/{id}' , 'TweetController@delete')->name('tweet_delete');
+//Route::delete('/tweet/delete/{id}' , 'TweetController@delete');
+

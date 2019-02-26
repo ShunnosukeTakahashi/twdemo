@@ -8,20 +8,29 @@ use App\Tweet;
 
 class TweetController extends Controller
 {
-    public function update(Request $request) {
+  public function update(Request $request) {
 
       //ログイン中のユーザーのid を取得
-      dd(Auth::id());
+      //dd(Auth::id());
 
-      return redirect()->route('home');
-  	}
+    return redirect()->route('home');
+  }
 
-    public function store(Request $request){
-    	$tweet = new Tweet;
-    	$tweet->tweet = $request->tweet;
+  public function store(Request $request){
+   $tweet = new Tweet;
+    	$tweet->tweet = $request->tweet; //postのname=tweetになってる
     	$tweet->user_id = Auth::id();
     	$tweet -> save();
-    	return redirect('home');
-    	
+
+      return redirect('home');
     }
-}
+
+    public function delete($id)
+    {
+        $tweet = tweet::findOrFail($id);
+        $tweet->delete($id);
+        
+        return redirect('home');
+    }
+
+  }

@@ -11,7 +11,13 @@ use App\Follow;
 class UserController extends Controller
 {
 	public function index(){
-    	//ログイン者のフォロー情報取得
+    	
+
+
+
+
+
+        //ログイン者のフォロー情報取得
     	$follows = Follow::where('user_id', '=' ,Auth::id())->get(); //第一引数はカラムの名前 
     	//follow_idを配列に入れる
     	$followIds = [];
@@ -19,8 +25,6 @@ class UserController extends Controller
     	foreach ($follows as $follow) {
     		$followIds[] =  $follow->follow_id;
     	}
-    	
-    	
     	$user = User::where('id' , '!=' ,Auth::id())->get(); //whereは条件を示しただけ、欲しかったらget使う
 
     	return view('user.list' , ['users'=>$user , 'followIds'=>$followIds]);
@@ -37,4 +41,5 @@ class UserController extends Controller
     	$follow -> save();
     	return redirect('/users');
     }
+
 }

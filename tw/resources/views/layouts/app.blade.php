@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -22,13 +23,13 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/modaal.min.css') }}" rel="stylesheet" >
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     {{ __('Home') }}
                     <!-- {{ config('app.name', 'Laravel') }} -->
                 </a>
@@ -97,6 +98,7 @@
                                 
                                     @csrf
                                     <textarea name="tweet" placeholder="今なにしてる？" rows="4" cols="50" class="form-control"></textarea>
+
                                     <button id="btnTweet" type="button" class="btn btn-primary" style="margin-top:10px;float:right;margin-bottom:10px">
                                         {{ __('ツイート') }}
                                     </button>

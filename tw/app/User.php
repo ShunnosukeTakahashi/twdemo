@@ -27,4 +27,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    public function tweets(){
+        return $this->hasMany('App\Tweet','user_id','id');//相手からの自分
+    }
+
 }

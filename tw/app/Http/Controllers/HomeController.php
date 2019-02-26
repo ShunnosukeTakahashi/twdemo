@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Tweet;
 use App\Follow;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -26,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user_tweet = User::find(Auth::id());
+        $count = count($user_tweet->tweets);
+        //dd($count);
+
+
         $follows = Follow::where('user_id', '=' ,Auth::id())->get(); 
         $followIds = [];
         foreach ($follows as $follow) {
@@ -34,8 +40,6 @@ class HomeController extends Controller
         $followIds[] = Auth::id();
 
         $tweets = Tweet::whereIn('user_id' , $followIds)->orderBy('created_at' , 'desc')->get();
-        
-        
         return view('home',['tweets'=>$tweets]);
     }
 }
