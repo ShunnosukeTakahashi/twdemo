@@ -98,7 +98,7 @@
                                 
                                     @csrf
                                     <textarea name="tweet" placeholder="今なにしてる？" rows="4" cols="50" class="form-control"></textarea>
-
+                                    <input type="file" class="btn"  name="image">
                                     <button id="btnTweet" type="button" class="btn btn-primary" style="margin-top:10px;float:right;margin-bottom:10px">
                                         {{ __('ツイート') }}
                                     </button>

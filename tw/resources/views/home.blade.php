@@ -11,6 +11,13 @@
 
                 <div class="card-body">
                     {{ $tweet->tweet }}
+                    @if(empty($tweet->image))
+
+                    @else
+                    <br>
+                    <img alt="" width="220" height="auto" src="{{ asset($tweet->image) }}" >
+                    @endif
+
                     <br>
                     <div style="display:flex; justify-content: left;align-items: center;">
                         <div style="float:left">
@@ -27,7 +34,7 @@
                       id=""
                       style="display: inline-block;"
                       method="POST"
-                      action="{{ route('tweet_delete', ['tweet' => $tweet]) }}"
+                      action="{{ route('tweet_delete',['tweet' => $tweet]) }}"
                       >
                       @csrf
                       <?php //@method('DELETE') ?>
