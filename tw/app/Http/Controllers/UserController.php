@@ -11,11 +11,6 @@ use App\Follow;
 class UserController extends Controller
 {
 	public function index(){
-    	
-
-
-
-
 
         //ログイン者のフォロー情報取得
     	$follows = Follow::where('user_id', '=' ,Auth::id())->get(); //第一引数はカラムの名前 
@@ -31,7 +26,6 @@ class UserController extends Controller
     }
 
     
-
     public function follow($follow_id){ //Postでやってみる（Requestのやつ）、現在はパスパラ
     	//dd(Auth::id()) フォローする人のid
     	//DD($follow_id) フォローされる人のid
@@ -41,5 +35,18 @@ class UserController extends Controller
     	$follow -> save();
     	return redirect('/users');
     }
+
+
+    public function remove($follow_id){
+
+        $remId = Follow::where('user_id' , '=' , Auth::id())->where('follow_id' , '=' ,$follow_id);
+        $remId->delete();
+
+
+      
+        return redirect('/users');
+    }
+
+    
 
 }

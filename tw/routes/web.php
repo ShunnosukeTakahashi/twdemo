@@ -28,9 +28,11 @@ Route::post('/tweet' , 'TweetController@store');
 Route::get('/users' , 'UserController@index')->name('user_list');
 
 Route::post('/users/follow/{follow_id}' , 'UserController@follow');
+Route::post('/users/follow/{follow_id}/remove' , 'UserController@remove');
 
 
 Route::post('/tweet/{id}' , 'TweetController@delete')->name('tweet_delete');
 
 //Route::post('/public/images' , 'TweetController@preserve');
+
 

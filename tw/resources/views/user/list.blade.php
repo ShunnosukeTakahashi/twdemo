@@ -19,7 +19,15 @@
                             //@if (count($user->follows) == 0)
                             ?>
                             @if(in_array($user->id , $followIds )) <?php //if(in_array(欲しいもの、全体))でそれを含むかどうか?>
-                            フォロー中
+                            
+                            <form method="POST" action="/users/follow/{{ $user->id }}/remove" accept-charset="UTF-8" id="formTweet" enctype="multipart/form-data">
+                              <input id="followId" name="followId" type="hidden" value="{{ $user->id }}">
+                              <button type="submit" class="btn btn-light">フォロー解除
+                              </button>
+                              @csrf
+                            </form>
+
+
                             @else
                             <form method="POST" action="/users/follow/{{ $user->id }}" accept-charset="UTF-8" id="formTweet" enctype="multipart/form-data">
                               <input id="followId" name="followId" type="hidden" value="{{ $user->id }}">
