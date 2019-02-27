@@ -41,9 +41,7 @@ class UserController extends Controller
 
         $remId = Follow::where('user_id' , '=' , Auth::id())->where('follow_id' , '=' ,$follow_id);
         $remId->delete();
-
-
-      
+        
         return redirect('/users');
     }
 

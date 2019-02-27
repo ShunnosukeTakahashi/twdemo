@@ -28,7 +28,7 @@ class TweetController extends Controller
       $tweet->image = "images/photos/img_{$tweet->id}.jpg";
       $tweet -> save();
       // 画像の保存
-      if(empty($tweet->image)){
+      if(isset($tweet->image)){
 
       }else{
       $request->file('image')->move(base_path() . '/public/images/photos', "img_{$tweet->id}.jpg");
