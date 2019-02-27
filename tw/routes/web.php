@@ -34,6 +34,3 @@ Route::post('/users/follow/{follow_id}/remove' , 'UserController@remove');
 Route::post('/tweet/{id}' , 'TweetController@delete')->name('tweet_delete');
 Route::get('/delete' , 'UserController@deleteData')->name('delete_data');
 
-//Route::post('/public/images' , 'TweetController@preserve');
-
-

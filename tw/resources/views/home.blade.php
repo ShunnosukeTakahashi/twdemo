@@ -11,8 +11,34 @@
 
                 <div class="card-body">
                     {{ $tweet->tweet }}
-                    @if(empty($tweet->image))
+                    
+                    
+<?php
+                      // dd(strpos($tweet,'https://www.youtube.com/watch?v=') !== false);
 
+                      if (strpos($tweet->tweet,'https://www.youtube.com/watch?v=') !== false) {
+                        //URLからYoutubeIDを取得
+                        $youtubeUrl = $tweet->tweet;
+                        list($url , $id) = explode('=' , $youtubeUrl);               
+?>
+                        <iframe width="400" height="225" src="https://www.youtube.com/embed/{{$id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+<?php
+
+
+                      }else{
+
+
+                      }
+?>
+                        
+
+
+
+
+
+                    @if(empty($tweet->image))
                     @else
                     <br>
                     <img alt="" width="220" height="auto" src="{{ asset($tweet->image) }}" >
