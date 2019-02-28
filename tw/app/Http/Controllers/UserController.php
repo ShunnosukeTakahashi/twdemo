@@ -21,7 +21,7 @@ class UserController extends Controller
     		$followIds[] =  $follow->follow_id;
     	}
     	$user = User::where('id' , '!=' ,Auth::id())->get(); //whereは条件を示しただけ、欲しかったらget使う
-
+        $user = User::paginate(10);
     	return view('user.list' , ['users'=>$user , 'followIds'=>$followIds]);
     }
 

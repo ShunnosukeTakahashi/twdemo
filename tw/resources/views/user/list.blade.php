@@ -56,9 +56,9 @@
                     <hr>
                 @endforeach
 
-<?php
-                //{{ $users->links() }}
-?>
+
+                {{ $users->links() }}
+
 
             </div>
             @endif

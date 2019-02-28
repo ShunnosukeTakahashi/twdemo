@@ -40,6 +40,7 @@ class HomeController extends Controller
         $followIds[] = Auth::id();
 
         $tweets = Tweet::whereIn('user_id' , $followIds)->orderBy('created_at' , 'desc')->get();
+        $tweets = Tweet::latest()->paginate(10);
         return view('home',['tweets'=>$tweets]);
     }
 }

@@ -94,7 +94,7 @@
                 </div> -->
             </div>
 
-            <?php //{{ $tweets->links() }} ?>
+            {{ $tweets->links() }} 
         </div>
     </div>
 </div>
