@@ -17,13 +17,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/' , 'TweetController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-//Route::get('/update' , 'TweetController@update');
-Route::post('/tweet' , 'TweetController@store');
 
+Route::post('/tweet' , 'TweetController@store');
 
 Route::get('/users' , 'UserController@index')->name('user_list');
 
@@ -33,4 +31,7 @@ Route::post('/users/follow/{follow_id}/remove' , 'UserController@remove');
 
 Route::post('/tweet/{id}' , 'TweetController@delete')->name('tweet_delete');
 Route::get('/delete' , 'UserController@deleteData')->name('delete_data');
+
+Route::post('/like' , 'LikeController@like')->name('like');
+Route::post('/like/dislike' , 'LikeController@dislike')->name('dislike');
 

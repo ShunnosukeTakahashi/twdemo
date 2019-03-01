@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 //use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Like;
+use App\Tweet;
 
 class User extends Authenticatable
 {
@@ -40,5 +42,11 @@ class User extends Authenticatable
     public function tweets(){
         return $this->hasMany('App\Tweet','user_id','id');//相手からの自分
     }
+    public function likes(){
+        return $this->hasMany('App\Like','user_id','id');
+    }
+    // public function Tweet(){
+    //     return $this->hasMany('App\Tweet');
+    // }
 
 }

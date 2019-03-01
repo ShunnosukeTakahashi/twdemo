@@ -5,6 +5,7 @@
   background-position: 0 0;
   cursor: pointer;
   background-size: 2900%;
+  border: 0;
 }
 .heart:hover {
   background-position: -1120px 0;
@@ -12,3 +13,12 @@
   transition: background 1s steps(28);
 }
 
+.notHeart{
+	width: 40px;
+  height: 40px;
+  background:url(../heart.png) no-repeat;
+  background-position: 0 0;
+  cursor: pointer;
+  background-size: cover;
+  border: 0;
+}

@@ -2,28 +2,79 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>
+    <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDukTd7CSIysz0YUjKsUoYIyk67D84VyKc",
+    authDomain: "twdemo-c0e40.firebaseapp.com",
+    databaseURL: "https://twdemo-c0e40.firebaseio.com",
+    projectId: "twdemo-c0e40",
+    storageBucket: "twdemo-c0e40.appspot.com",
+    messagingSenderId: "824895501691"
+    };
+    //firebase.initializeApp(config);
+    //const firebase = require("firebase");
+    // Required for side-effects
 
-    <!--<title>{{ config('app.name', 'Twitter Clone') }}</title> -->
+    //require("firebase/firestore");
+
+    firebase.initializeApp(config);
+
+
+// Initialize Cloud Firestore through Firebase
+    var db = firebase.firestore();
+
+    db.collection("users").add({
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815
+    })
+    .then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
+    })
+    .catch(function(error) {
+        console.error("Error adding document: ", error);
+    });
+
+    db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+    });
+
+    db.collection("users").doc("0jgxDsZXNEF3TVLKEXsV")
+    .onSnapshot(function(doc) {
+        console.log("Current data: ", doc.data());
+    });
+
+
+    </script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+<!--<title>{{ config('app.name', 'Twitter Clone') }}</title> -->
 <title>twdemo</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+<!-- Fonts -->
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/modaal.min.css') }}" rel="stylesheet" >
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<!-- Styles -->
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/modaal.min.css') }}" rel="stylesheet" >
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
     <div id="app">
@@ -47,103 +98,103 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                @endif
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            @if (Route::has('register'))
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            @endif
+                        </li>
                         @else
-                            <li class="nav-item" style="display:flex; justify-content: center;align-items: center;">
-                                <a class="navbar-brand" href="{{ route('user_list') }}" style="font-size:13px">
-                                    {{ __('ユーザ一覧') }}
-                                   <!-- {{ config('app.name', 'Laravel') }} -->
-                                </a>
-                                                     
+                        <li class="nav-item" style="display:flex; justify-content: center;align-items: center;">
+                            <a class="navbar-brand" href="{{ route('user_list') }}" style="font-size:13px">
+                                {{ __('ユーザ一覧') }}
+                                <!-- {{ config('app.name', 'Laravel') }} -->
+                            </a>
 
-                            </li>
 
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                    <!-- <span class="caret"></span> -->
-                                </a>
+                        </li>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                                <!-- <span class="caret"></span> -->
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                    <a class="dropdown-item" href="{{ route('delete_data') }}">
-                                       
-                                        {{ __('Delete Your Account') }}
-                                    </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('delete_data') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                            <a class="dropdown-item" href="{{ route('delete_data') }}">
 
-                            <li class="nav-item">
-                                <a href="#inline" class="inline btn btn-primary">ツイート</a>
-                                <?php //{{Html::link('#inline', __('ツイート'), ['class' => "inline btn btn-primary"])}} ?>
-                            </li>
+                                {{ __('Delete Your Account') }}
+                            </a>
 
-                            <!-- <a href="#inline" class="inline">Show</a> -->
-                            <div id="inline" style="display:none;" >
-                                <h4>ツイートする</h4>
+                            <form id="logout-form" action="{{ route('delete_data') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
 
-                                
-                                <form method="POST" action="/tweet" accept-charset="UTF-8" id="formTweet" enctype="multipart/form-data">
-                                
-                                    @csrf
-                                    <textarea name="tweet" placeholder="今なにしてる？" rows="4" cols="50" class="form-control"></textarea>
-                                    <input type="file" class="btn"  name="image">
-                                    <button id="btnTweet" type="button" class="btn btn-primary" style="margin-top:10px;float:right;margin-bottom:10px">
-                                        {{ __('ツイート') }}
-                                    </button>
-                                </form>
-                                <?php //{!! Form::close() !!} ?>
-                            </div>
+                    <li class="nav-item">
+                        <a href="#inline" class="inline btn btn-primary">ツイート</a>
+                        <?php //{{Html::link('#inline', __('ツイート'), ['class' => "inline btn btn-primary"])}} ?>
+                    </li>
 
-                        @endguest
-                    </ul>
-                </div>
+                    <!-- <a href="#inline" class="inline">Show</a> -->
+                    <div id="inline" style="display:none;" >
+                        <h4>ツイートする</h4>
+
+
+                        <form method="POST" action="/tweet" accept-charset="UTF-8" id="formTweet" enctype="multipart/form-data">
+
+                            @csrf
+                            <textarea name="tweet" placeholder="今なにしてる？" rows="4" cols="50" class="form-control"></textarea>
+                            <input type="file" class="btn"  name="image">
+                            <button id="btnTweet" type="button" class="btn btn-primary" style="margin-top:10px;float:right;margin-bottom:10px">
+                                {{ __('ツイート') }}
+                            </button>
+                        </form>
+                        <?php //{!! Form::close() !!} ?>
+                    </div>
+
+                    @endguest
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- フラッシュ・メッセージ -->
+    <!-- フラッシュ・メッセージ -->
 
-        @if(Session::has('message'))
-          <div class="container mt-2">
-              <div class="alert alert-success">
-                  {{ session('message') }}
-              </div>
-          </div>
-        @endif
+    @if(Session::has('message'))
+    <div class="container mt-2">
+      <div class="alert alert-success">
+          {{ session('message') }}
+      </div>
+  </div>
+  @endif
 
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+  <main class="py-4">
+    @yield('content')
+</main>
+</div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><!-- Scripts（Jquery） -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><!-- Scripts（bootstrapのjavascript） -->
-    <script src="{{ asset('js/modaal.min.js') }}" defer></script>
-    <script>
-        $(function(){
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script><!-- Scripts（Jquery） -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script><!-- Scripts（bootstrapのjavascript） -->
+<script src="{{ asset('js/modaal.min.js') }}" defer></script>
+<script>
+    $(function(){
 
-            $('.inline').modaal({
-                width: 600,
-                hide_close: true,
+        $('.inline').modaal({
+            width: 600,
+            hide_close: true,
             	// type: 'ajax',	// コンテンツのタイプを指定
             	animation_speed: '500', 	// アニメーションのスピードをミリ秒単位で指定
             	// background: '#fff',	// 背景の色を白に変更
@@ -153,11 +204,11 @@
             	loading_content: 'Now Loading, Please Wait.'	// 読み込み時のテキスト表示
             });
 
-            $("#btnTweet").click(function() {
-                $("#formTweet").submit();
-            });
+        $("#btnTweet").click(function() {
+            $("#formTweet").submit();
         });
-    </script>
+    });
+</script>
 
 
 </body>

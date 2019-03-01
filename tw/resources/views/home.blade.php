@@ -11,15 +11,14 @@
 
                 <div class="card-body">
                     {{ $tweet->tweet }}
-                    
-                    
+                                  
 <?php
                       // dd(strpos($tweet,'https://www.youtube.com/watch?v=') !== false);
 
                       if (strpos($tweet->tweet,'https://www.youtube.com/watch?v=') !== false) {
                         //URLからYoutubeIDを取得
                         $youtubeUrl = $tweet->tweet;
-                        list($url , $id) = explode('=' , $youtubeUrl);               
+                        list($url , $id) = explode('=' , $youtubeUrl);
 ?>
                         <iframe width="400" height="225" src="https://www.youtube.com/embed/{{$id}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -49,13 +48,46 @@
                         <div style="float:left">
                           {{ $tweet->getUser() }} / {{ $tweet->created_at }} 
                       </div>
-                      <div style="float:left" class="heart"></div>
+                      @if(!isset($favTweets[$tweet->id]))
+
+                      <form
+                      method="POST"
+                      action="/like"
+                      >
+                      <input type="hidden"  name="tweet_id" value="{{$tweet->id}}" >
+                      <button class="heart"></button>
+                      @csrf
+                      </form>
+
+
+                      <!-- <a href="{{ url('/like') }}" style="float:left" 
+                        class="heart"></a> -->
+                      
+                      @else
+                      <form
+                      id=""
+                      style="display: inline-block;"
+                      method="POST"
+                      action="/like/dislike"
+                      >
+                      <input type="hidden"  name="tweet_id" value="{{$tweet->id}}" >
+                      <button class="notHeart"></button>
+                      @csrf
+                      </form>
+
+                      <!-- <a href="{{ url('/dislike') }}" style="float:left" 
+                        class="notHeart"></a> -->
+
+                        
+                      @endif
+
+
+
+
+
+
 
                       @if($tweet->user_id == Auth::id())
-                      <?php
-                        //formのIDを作る
-
-                      ?>
                       <form
                       id=""
                       style="display: inline-block;"
